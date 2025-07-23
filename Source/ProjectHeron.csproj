@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>RW1.3;RW1.3Unstable;RW1.4Unstable;RW1.5Unstable</Configurations>
-    <Configuration Condition=" '$(Configuration)' == '' ">RW1.3</Configuration>
+    <Configurations>RW1.3;RW1.3Unstable;RW1.4Unstable;RW1.5Unstable;RW1.6</Configurations>
+    <Configuration Condition=" '$(Configuration)' == '' ">RW1.6</Configuration>
     <AssemblyName>DoorsExpanded</AssemblyName>
     <TargetFramework>net472</TargetFramework>
     <NoStdLib>true</NoStdLib>
@@ -17,6 +17,15 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <Choose>
+	  <When Condition=" '$(Configuration)' == 'RW1.6' ">
+		  <PropertyGroup>
+			  <OutputPath>..\1.6\Assemblies\</OutputPath>
+		  </PropertyGroup>
+		  <ItemGroup>
+			  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
+			  <!-- only stable versions -->
+		  </ItemGroup>
+	  </When>
 	  <When Condition=" '$(Configuration)' == 'RW1.4' ">
 		  <PropertyGroup>
 			  <OutputPath>..\1.4\Assemblies\</OutputPath>
@@ -53,8 +62,8 @@
     </When>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.3901" />
-    <PackageReference Include="Lib.Harmony" Version="2.1.*" ExcludeAssets="runtime" />
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4528" />
+    <PackageReference Include="Lib.Harmony" Version="2.3.6" ExcludeAssets="runtime" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Building_Door_Reference\Building_Door.cs" />

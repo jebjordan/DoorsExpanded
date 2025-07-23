@@ -24,7 +24,7 @@ namespace DoorsExpanded
         "larger frames are no longer needed.")]
     public class Building_DoorRegionHandler : Building_Door
     {
-        public override void Tick()
+        protected override void Tick()  ///public override void Tick()
         {
             Log.Warning($"{this} remains from RimWorld v1.4 - destroying this to remain in-line with new" +
                 "RW 1.5 MultiTileDoor code for DoorsExpanded");
