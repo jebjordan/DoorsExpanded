@@ -57,7 +57,16 @@ namespace DoorsExpanded
 
         // When secured remotely, only care about whether its held open remotely;
         // else can be held open either remotely or by gizmo.
-        public bool HoldOpen => securedRemotely ? HoldOpenRemotely : HoldOpenRemotely || base.HoldOpen;
+        public bool HoldOpen
+        {
+            get {
+                return securedRemotely ? HoldOpenRemotely : HoldOpenRemotely || base.HoldOpen;
+            }
+            set {
+                base.holdOpenInt = value;
+                //securedRemotely = value;
+            }
+        }
 
         public bool HoldOpenRemotely => Button is { ButtonOn: true };
 
@@ -178,10 +187,20 @@ namespace DoorsExpanded
             {
                 if (Open)
                 {
+                    if (SecuredRemotely && !Forbidden)
+                    {
+                        HoldOpen = false;
+                        ForbidUtility.SetForbidden(this, true);
+                    }
                     DoorTryClose();
                 }
                 else
                 {
+                    if (SecuredRemotely && Forbidden)
+                    {
+                        HoldOpen = true;
+                        ForbidUtility.SetForbidden(this, false);
+                    }
                     DoorOpen();
                 }
             }

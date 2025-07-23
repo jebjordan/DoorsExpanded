@@ -2,8 +2,8 @@
 <!-- This file is automatically imported in MSBuild 15+ (Visual Studio 2017+) via the Microsoft.Common.props import, so put all the common contents between all the csproj files here -->
 <Project>
   <PropertyGroup>
-    <Configurations>RW1.3;RW1.4;RW1.4Unstable; RW1.4Unstable</Configurations>
-    <Configuration Condition=" '$(Configuration)' == '' ">RW1.5</Configuration>
+    <Configurations>RW1.3;RW1.4;RW1.4Unstable; RW1.4Unstable;RW1.6</Configurations>
+    <Configuration Condition=" '$(Configuration)' == '' ">RW1.6</Configuration>
     <TargetFramework>net48</TargetFramework>
     <NoStdLib>true</NoStdLib>
     <LangVersion>10</LangVersion>
@@ -64,9 +64,18 @@
 			  <!-- -* suffix allows beta/prerelease versions -->
 		  </ItemGroup>
 	  </When>
+	  <When Condition=" '$(Configuration)' == 'RW1.6' ">
+		  <PropertyGroup>
+			  <OutputPath>..\1.6\Assemblies\</OutputPath>
+		  </PropertyGroup>
+		  <ItemGroup>
+			  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
+			  <!-- -* suffix allows beta/prerelease versions -->
+		  </ItemGroup>
+	  </When>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="Lib.Harmony" Version="2.2.*" ExcludeAssets="runtime" />
+    <PackageReference Include="Lib.Harmony" Version="2.3.*" ExcludeAssets="runtime" />
   </ItemGroup>
   
 
