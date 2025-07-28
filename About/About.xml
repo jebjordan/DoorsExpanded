@@ -21,7 +21,14 @@
       <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
     </li>
   </modDependencies>
-  <description>1.5.0.0 (04-20-2024)
+  <description>
+  1.5.0.2 (07-28-2025
+	* Remote Doors work (1.5.0.1), 
+		|-> (1.5.0.2) all pawns should be incapable of opening the door when it is forced close (secured remotely and shut)
+	* 
+
+  
+1.5.0.0 (04-20-2024)
 
 Adds new types and sizes of doors to RimWorld and an extensible framework for other mods to add such doors.
 
