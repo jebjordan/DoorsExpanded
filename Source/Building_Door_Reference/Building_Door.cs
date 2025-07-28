@@ -307,6 +307,7 @@ namespace RimWorld
 
         protected void DoorOpen(int ticksToClose = CloseDelayTicks)
         {
+
             if (openInt)
             {
                 ticksUntilClose = ticksToClose;

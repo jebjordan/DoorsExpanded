@@ -37,6 +37,10 @@ namespace DoorsExpanded
         public CompProperties_DoorExpanded Props =>
     props ??= def.GetDoorExpandedProps() ?? throw new Exception("Missing " + typeof(CompProperties_DoorExpanded));
 
+        protected override void Tick() //may help with the doorsclosefastagain thing
+        {
+            base.Tick();
+        }
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
@@ -253,7 +257,6 @@ namespace DoorsExpanded
             var persMod = verticalRotation && props.fixedPerspective ? 2f : 1f;
             scaleVector = new Vector3(drawSize.x * persMod, 1f, drawSize.y * persMod);
         }
-
 
         private static void DrawFrameParams(ThingDef def, CompProperties_DoorExpanded props,
             Vector3 drawPos, Rot4 rotation, bool split,

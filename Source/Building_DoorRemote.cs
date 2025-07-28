@@ -3,6 +3,7 @@ using HarmonyLib;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace DoorsExpanded
 {
@@ -229,6 +230,20 @@ namespace DoorsExpanded
                     Messages.Message("PH_ButtonConnectFailed".Translate(t.ToString()), MessageTypeDefOf.RejectInput);
                 }
             }, null);
+        }
+
+        // With this, now for example someone who Runs Wild still cannot open the door. Before if someone become a wild man they could open the door.
+        public override bool PawnCanOpen(Pawn p)
+        {
+            if (ForcedClosed)
+            {
+                return false;
+            }
+            else
+            {
+                return base.PawnCanOpen(p);
+            }
+            
         }
 
         private void ButtonDisconnect()
