@@ -37,6 +37,8 @@ namespace DoorsExpanded
         {
             var rwAssembly = typeof(Building_Door).Assembly;
 
+            /*
+            // this seems unnecessary? idk. At the very least, the mod worked fine without any of these patches.
             // Patches for ghost (pre-placement) and blueprints for door expanded.
             foreach (var original in typeof(Designator_Place).FindLambdaMethods(nameof(Designator_Place.DoExtraGuiControls), typeof(void)))
             {
@@ -44,6 +46,7 @@ namespace DoorsExpanded
                     transpiler: nameof(DoorExpandedDesignatorPlaceRotateAgainIfNeededTranspiler),
                     transpilerRelated: nameof(DoorExpandedRotateAgainIfNeeded));
             }
+            */
             Patch(original: AccessTools.Method(typeof(Designator_Place), "HandleRotationShortcuts"),
                 transpiler: nameof(DoorExpandedDesignatorPlaceRotateAgainIfNeededTranspiler),
                 transpilerRelated: nameof(DoorExpandedRotateAgainIfNeeded));
@@ -63,16 +66,27 @@ namespace DoorsExpanded
             Patch(original: AccessTools.Method(typeof(Thing), "DrawAt"),
                 prefix: nameof(DoorExpandedThingDrawAtPrefix));
 
+            /*
+             * Seems to be unnecessary now. For one, the class no longer includes AddJobGiverWorkOrders, for two, 
+             * the replacement as far as I can tell (RimWorld.FloatMenuOptionProvider_WorkGivers)(am I wrong on that one?) already manages the translation. 
+            
             // Patches related to door remotes.
             Patch(original: AccessTools.Method(typeof(FloatMenuMakerMap), "AddJobGiverWorkOrders"),
                 transpiler: nameof(DoorRemoteAddJobGiverWorkOrdersTranspiler),
                 transpilerRelated: nameof(TranslateCustomizeUseDoorRemoteJobLabel));
-        }
+            */
 
+            //Debug.Log("[DE TEST]: These Patches Worked?");
+        }
         private static void Patch(MethodInfo original, string prefix = null, string postfix = null, string transpiler = null,
             string transpilerRelated = null, int priority = Priority.Normal, string[] before = null, string[] after = null,
             bool? debug = null)
         {
+            //Debug.Log("[DE TEST]: " + original + " | " + prefix + " | " + postfix + " | " + transpiler + " | " + transpilerRelated + " | " + before + " | " + after + " | " + debug);
+            //Debug.Log("[DE TEST]: " + original + " | " + prefix + " | " + postfix + " | " + transpiler + " | " + transpilerRelated + " | " + before + " | " + after + " | " + debug);
+            //Debug.Log("[DE TEST]: " + " original: " + original + "\n\t|> prefix: " + prefix + "\n\t|> postfix: " + postfix + "\n\t|> transpiler: " + transpiler + "\n\t|> transpilerRelated: " + transpilerRelated + "\n\t|> before: " + before + "\n\t|> " + before + "\n\t|> after: " + after + "\n\t|> debug: " + debug);
+            //Debug.Log(harmony);
+
             harmony.Patch(original,
                 NewHarmonyMethod(prefix, priority, before, after, debug),
                 NewHarmonyMethod(postfix, priority, before, after, debug),
@@ -89,6 +103,24 @@ namespace DoorsExpanded
         private static IEnumerable<MethodInfo> FindLambdaMethods(this Type type, string parentMethodName, Type returnType,
             Func<MethodInfo, bool> predicate = null)
         {
+
+            /*
+            // just some uh, very bad testing
+            UnityEngine.Debug.Log("[DE TEST] | " + type.ToStringSafe() + " | " + parentMethodName + " | " + returnType.ToStringSafe());
+            var innerTypesA = type.GetNestedTypes(AccessTools.all);
+            foreach (var Atype in innerTypesA)
+            {
+                UnityEngine.Debug.Log("[DE TEST]: | " + Atype.ToString() + " | " + Atype.GetTypeInfo() + " | " + Atype.IsDefined(typeof(CompilerGeneratedAttribute)));
+                UnityEngine.Debug.Log("[DE TEST]: | " + Atype.GetTypeInfo() + "\n");
+
+            }
+            UnityEngine.Debug.Log("[DE TEST] | " + innerTypesA.ToString());
+                //.Where(innerType => innerType.IsDefined(typeof(CompilerGeneratedAttribute)));
+            */
+
+            //var innerTypes = AccessTools.InnerTypes(typeof(CompilerGeneratedAttribute));
+            //Debug.Log("[DE TEST]:1 " + innerTypes.ToString());
+
             // A lambda on RimWorld 1.0 on Unity 5.6.5f1 (mono .NET Framework 3.5 equivalent) is compiled into
             // a CompilerGenerated-attributed non-public inner type with name prefix "<{parentMethodName}>"
             // including an instance method with name prefix "<>".
@@ -105,10 +137,13 @@ namespace DoorsExpanded
             var foundMethod = false;
             foreach (var innerType in innerTypes)
             {
+                //Debug.Log("[DE TEST]:1 " + innerType.FullName);
+                //Debug.Log($"[DE TEST]:2 {innerType.FullName}");
                 if (innerType.Name.StartsWith("<" + parentMethodName + ">", StringComparison.Ordinal))
                 {
                     foreach (var method in innerType.GetMethods(AccessTools.allDeclared))
                     {
+                        //Debug.Log($"[DE TEST]:3\n\t method:{method.Name} mType:{method.ReturnType}");
                         if (method.Name.StartsWith("<", StringComparison.Ordinal) &&
                             method.ReturnType == returnType && (predicate is null || predicate(method)))
                         {
@@ -121,6 +156,7 @@ namespace DoorsExpanded
                 {
                     foreach (var method in innerType.GetMethods(AccessTools.allDeclared))
                     {
+                        //Debug.Log($"[DE TEST]:3\n\t method:{method.Name} mType:{method.ReturnType}");
                         if (method.Name.StartsWith("<" + parentMethodName + ">", StringComparison.Ordinal) &&
                             method.ReturnType == returnType && (predicate is null || predicate(method)))
                         {
@@ -134,6 +170,7 @@ namespace DoorsExpanded
             {
                 throw new ArgumentException($"Could not find any lambda method for type {type} and method {parentMethodName}" +
                     " that satisfies given predicate");
+                
             }
         }
 
@@ -358,6 +395,7 @@ namespace DoorsExpanded
 
 
         // FloatMenuMakerMap.AddJobGiverWorkOrders
+        // This appears unecessary now? It appears to only translate the priority float menu option, but that seems to happen automatically now. 
         public static IEnumerable<CodeInstruction> DoorRemoteAddJobGiverWorkOrdersTranspiler(IEnumerable<CodeInstruction> instructions)
         {
             // Workaround to remove the "Prioritize" prefix for the remote press/flip job in the float menu.

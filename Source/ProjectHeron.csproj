@@ -31,7 +31,7 @@
 			  <OutputPath>..\1.4\Assemblies\</OutputPath>
 		  </PropertyGroup>
 		  <ItemGroup>
-			  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.*" /> <!-- only stable versions -->
+			  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.*" /> 
 			  <!-- only stable versions -->
 		  </ItemGroup>
 	  </When>
@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Building_Door_Reference\Building_Door.cs" />
+	<Compile Remove="DesignatorPlace_HandleRotationShortcuts_Patch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Building_Door_Reference\Building_Door.cs" />
