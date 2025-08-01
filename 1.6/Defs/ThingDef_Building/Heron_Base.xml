@@ -61,6 +61,7 @@
     <blockLight>true</blockLight>
     <drawerType>RealtimeOnly</drawerType>
     <building>
+      <paintable>true</paintable>
       <isInert>true</isInert>
       <canPlaceOverWall>true</canPlaceOverWall>
       <soundDoorOpenPowered>Door_OpenPowered</soundDoorOpenPowered>

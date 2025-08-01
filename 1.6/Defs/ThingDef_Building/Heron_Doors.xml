@@ -603,6 +603,14 @@
     <building>
       <soundDoorOpenManual>HeronBlastDoorOpen</soundDoorOpenManual>
       <soundDoorCloseManual>HeronBlastDoorClose</soundDoorCloseManual>
+	  <!-- Did not quite work out as well as I had hoped.
+	  <blueprintClass>Blueprint_Door</blueprintClass>
+	  <blueprintGraphicData>
+		<texPath>Things/Building/Door/DoorBlastDoor_Frame</texPath>
+		<shaderType>CutoutComplex</shaderType>
+		<graphicClass>Graphic_Multi</graphicClass>
+		<drawSize>(3,2)</drawSize>
+	  </blueprintGraphicData> -->
     </building>
     <comps>
       <li Class="DoorsExpanded.CompProperties_PostProcessText">
