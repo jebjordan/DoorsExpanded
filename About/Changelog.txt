@@ -1,3 +1,20 @@
+1.5.0.2 (07-28-2025)
+========================
+	* Remote Doors now work (1.5.0.1), 
+		|-> (1.5.0.2) all pawns should be incapable of opening the door when it is 
+		  \ forced close (secured remotely and shut)
+	* ! --> **Doors** are now paintable. 
+	      \ Someone requested it on the workshop page, and I can't really think of any 
+			reason not to have them paintable. Also, it was added into Core in 1.4 something, 
+			so I imagine it just wasn't considered when the mod was first made. I did not make 
+			the remote and lever paintable however, as it did not really look all that great. 
+			Everything else seems to look fine. 
+
+1.5.0.1 (07-23-2025)
+========================
+	* Version change to RimWorld 1.6
+	* Remote Doors now work
+
 1.5.0.0 (04-20-2024)
 ========================
 Updated for RimWorld 1.5 to use the new MultiTileDoor class instead of invisible doors. Saves from 1.4 to 1.5 will need to rebuild their doors in the new 1.5 version.
