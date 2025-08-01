@@ -232,9 +232,9 @@ namespace DoorsExpanded
             }, null);
         }
 
-        // With this, now for example someone who Runs Wild still cannot open the door. Before if someone become a wild man they could open the door.
-        public override bool PawnCanOpen(Pawn p)
-        {
+        // With this, now for example someone who Runs Wild still cannot open the door. Before if someone become a wild man they could walk right out.
+        public override bool PawnCanOpen(Pawn p) => !ForcedClosed && base.PawnCanOpen(p);
+        /*{
             if (ForcedClosed)
             {
                 return false;
@@ -245,6 +245,7 @@ namespace DoorsExpanded
             }
             
         }
+        */
 
         private void ButtonDisconnect()
         {
