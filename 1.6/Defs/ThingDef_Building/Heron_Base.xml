@@ -24,6 +24,9 @@
     <stuffCategories>
       <li>Metallic</li>
     </stuffCategories>
+	<building>
+	  <isStuffableAirtight>true</isStuffableAirtight>
+	</building>
   </ThingDef>
 
   <ThingDef ParentName="AbstractHeronDoorBase" Name="HeronDoorBase" Abstract="True">
@@ -32,6 +35,9 @@
       <li>Woody</li>
       <li>Stony</li>
     </stuffCategories>
+	<building>
+	  <isStuffableAirtight>true</isStuffableAirtight>
+	</building>
   </ThingDef>
 
   <!-- Based off /Defs/ThingDefs[@Name="DoorBase"] - can't simply inherit from it, since there's no way to override its building.blueprintGraphicData with null. -->
